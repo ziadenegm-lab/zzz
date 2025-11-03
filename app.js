@@ -2099,7 +2099,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // PDF Export Function - SIMPLE TEXT DOWNLOAD (GUARANTEED TO WORK)
 function exportDashboardToPDF() {
-  console.log('=== Starting Simple PDF Export (Text Format) ===');
+  console.log('=== Starting Simple PDF Export (pdf Format) ===');
   
   // Check permissions
   if (!appState.currentUser || !appState.currentUser.permissions.canExportReportsToPDF) {
