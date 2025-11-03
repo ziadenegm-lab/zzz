@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Succession Planning Application</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Login Page -->
+    <div id="loginPage" class="page active">
+        <div class="login-container">
+            <div class="login-box">
+                <div class="login-logo">
+                    <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAA+ADwDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWm5ybnJ2eoaKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD3+iiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD/2Q==" alt="ECPC Logo" class="company-logo">
+                    <span class="company-name">ECPC</span>
+                </div>
+                <h2 style="color:#003366;font-size:32px;font-weight:700;margin-top:8px;margin-bottom:8px;">Succession Planning</h2>
+                <p class="login-subtitle" style="font-size:16px;color:#888;font-weight:400;margin-bottom:24px;">ECPC - Human Resources Department</p>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="loginUsername">Username</label>
+                        <input type="text" id="loginUsername" class="form-control" required autocomplete="username" placeholder="Enter your username">
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Password</label>
+                        <input type="password" id="loginPassword" class="form-control" required autocomplete="current-password" placeholder="Enter your password">
+                    </div>
+                    <div id="loginError" class="error-message"></div>
+                    <button type="submit" class="btn btn--primary btn--full-width">Login</button>
+                    <div class="login-hint">
+                        <strong>Test Credentials:</strong><br>
+                        Managers: manager1, manager2, manager3<br>
+                        HR: hr1, hr2<br>
+                        Password: pass123
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Application Layout -->
+    <div id="mainApp" class="main-app hidden">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-logo">
+                <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAA+ADwDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWm5ybnJ2eoaKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD3+iiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD/2Q==" alt="ECPC Logo" class="company-logo" id="headerLogo">
+                <span class="company-name">ECPC</span>
+            </div>
+            <div class="header-right">
+                <span id="currentUser" class="user-info"></span>
+                <button id="logoutBtn" class="btn btn--secondary btn--sm">Logout</button>
+            </div>
+        </header>
+
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-logo">
+                <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAA+ADwDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWm5ybnJ2eoaKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD3+iiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD/2Q==" alt="ECPC Logo" class="company-logo" id="sidebarLogo">
+                <span class="company-name">ECPC</span>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" data-page="welcome" class="nav-item active">Welcome</a>
+                <a href="#" data-page="instructions" class="nav-item">Instructions</a>
+                <a href="#" data-page="criticalPositions" class="nav-item manager-only">Critical Positions</a>
+                <a href="#" data-page="assessment" class="nav-item manager-only">9-Box Assessment</a>
+                <a href="#" data-page="retention" class="nav-item manager-only">Retention Risks</a>
+                <a href="#" data-page="nextSteps" class="nav-item manager-only">Next Steps</a>
+                <a href="#" data-page="nineBoxGrid" class="nav-item">9-Box Grid</a>
+                <a href="#" data-page="dashboard" class="nav-item">Executive Dashboard</a>
+                <a href="#" data-page="usersList" class="nav-item hr-only">Users List</a>
+                <a href="#" data-page="employeesDB" class="nav-item hr-only">Employees Database</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Welcome Page -->
+            <div id="welcomePage" class="page-content active">
+                <h1>Welcome, <span id="welcomeUsername"></span></h1>
+                <div class="datetime-display">
+                    <p id="currentDateTime"></p>
+                </div>
+                <div class="content-card">
+                    <h2>The Importance of Succession Planning</h2>
+                    <p>Succession planning is a critical strategic process that ensures organizational continuity and resilience. It involves identifying and developing internal personnel with the potential to fill key business leadership positions in the company. This proactive approach helps organizations prepare for inevitable changes in leadership and critical roles.</p>
+                    <p>Effective succession planning reduces the risk of talent gaps, maintains institutional knowledge, and ensures that the organization has the right people in the right positions at the right time. It also demonstrates to employees that the organization is invested in their growth and development, which can improve retention and engagement.</p>
+                    <p>This application facilitates a comprehensive succession planning process, enabling line managers and HR professionals to assess talent, identify high-potential employees, and develop strategies to build a robust talent pipeline for the future success of our organization.</p>
+                </div>
+            </div>
+
+            <!-- Instructions Page -->
+            <div id="instructionsPage" class="page-content">
+                <h1>Instructions and User Guide</h1>
+                <div class="content-card">
+                    <h2>Application Process Overview</h2>
+                    <p>This succession planning application follows a structured workflow designed to comprehensively assess and plan for talent development and succession:</p>
+                    <ol>
+                        <li><strong>Critical Positions Selection:</strong> Filter and select employees for assessment based on direction, department, job grade, and category.</li>
+                        <li><strong>9-Box Assessment:</strong> Evaluate each employee's performance contribution and evolution potential.</li>
+                        <li><strong>Retention Risks Assessment:</strong> Identify risks and impacts of potential talent loss.</li>
+                        <li><strong>Next Steps Planning:</strong> Define future roles, readiness timelines, and development plans.</li>
+                        <li><strong>9-Box Grid Visualization:</strong> View talent distribution and historical trends.</li>
+                        <li><strong>Executive Dashboard:</strong> Analyze comprehensive KPIs and talent analytics.</li>
+                    </ol>
+                </div>
+                <div class="content-card">
+                    <h2>Dashboard Navigation</h2>
+                    <p>Use the left sidebar to navigate between different sections of the application. Menu items are customized based on your role:</p>
+                    <ul>
+                        <li><strong>Line Managers:</strong> Access assessment workflows, 9-box grid, and analytics for your team.</li>
+                        <li><strong>HR Personnel:</strong> Access all manager features plus employee database management and user administration.</li>
+                    </ul>
+                </div>
+                <div class="content-card">
+                    <h2>Key Features</h2>
+                    <ul>
+                        <li><strong>Role-Based Access:</strong> Content and features are tailored to your access level.</li>
+                        <li><strong>Data Persistence:</strong> Your work is saved automatically as you progress through assessments.</li>
+                        <li><strong>Historical Tracking:</strong> View talent evolution over multiple years in the 9-box grid.</li>
+                        <li><strong>Comprehensive Analytics:</strong> Executive dashboard provides insights into talent pools, risks, and readiness.</li>
+                        <li><strong>Modular Design:</strong> Navigate freely between sections and return to incomplete assessments.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Critical Positions Selection Page -->
+            <div id="criticalPositionsPage" class="page-content">
+                <h1>Critical Positions Selection</h1>
+                <div class="content-card">
+                    <h2>Filter Employees</h2>
+                    <div class="filter-row">
+                        <div class="filter-group">
+                            <label>Direction</label>
+                            <select id="filterDirection" class="form-control">
+                                <option value="">All Directions</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>Department</label>
+                            <select id="filterDepartment" class="form-control">
+                                <option value="">All Departments</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>Job Grade</label>
+                            <select id="filterGrade" class="form-control">
+                                <option value="">All Grades</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>Job Category</label>
+                            <select id="filterCategory" class="form-control">
+                                <option value="">All Categories</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="filter-actions">
+                        <button id="applyFilters" class="btn btn--primary">Apply Filters</button>
+                        <button id="clearFilters" class="btn btn--secondary">Clear Filters</button>
+                    </div>
+                </div>
+                <div class="content-card">
+                    <div class="selection-header">
+                        <h2>Select Employees for Assessment</h2>
+                        <p id="selectionCount" class="selection-count">0 employees selected</p>
+                    </div>
+                    <div class="table-container">
+                        <table class="data-table" id="employeesTable">
+                            <thead>
+                                <tr>
+                                    <th><input type="checkbox" id="selectAll"></th>
+                                    <th>Employee Name</th>
+                                    <th>Job Title</th>
+                                    <th>Job Grade</th>
+                                    <th>Department</th>
+                                </tr>
+                            </thead>
+                            <tbody id="employeesTableBody">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="action-buttons">
+                        <button id="continueToAssessment" class="btn btn--primary" disabled>Continue to Assessment</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 9-Box Assessment Page -->
+            <div id="assessmentPage" class="page-content">
+                <h1>9-Box Assessment</h1>
+                <div class="content-card">
+                    <p class="info-text">Assess each employee's performance contribution and perspective of evolution.</p>
+                    <div id="assessmentList" class="assessment-list"></div>
+                    <div class="action-buttons">
+                        <button id="saveAssessment" class="btn btn--secondary">Save Progress</button>
+                        <button id="nextToRetention" class="btn btn--primary">Next: Retention Risks</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Retention Risks Page -->
+            <div id="retentionPage" class="page-content">
+                <h1>Talent Retention Risks Assessment</h1>
+                <div class="content-card">
+                    <p class="info-text">Assess the risk and impact of losing each employee.</p>
+                    <div id="retentionList" class="assessment-list"></div>
+                    <div class="action-buttons">
+                        <button id="backToAssessment" class="btn btn--secondary">Previous</button>
+                        <button id="saveRetention" class="btn btn--secondary">Save Progress</button>
+                        <button id="nextToSteps" class="btn btn--primary">Next: Next Steps</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Next Steps Page -->
+            <div id="nextStepsPage" class="page-content">
+                <h1>Possible Next Steps</h1>
+                <div class="content-card">
+                    <p class="info-text">Define future roles, readiness, and development plans for each employee.</p>
+                    <div id="nextStepsList" class="assessment-list"></div>
+                    <div class="action-buttons">
+                        <button id="backToRetention" class="btn btn--secondary">Previous</button>
+                        <button id="saveNextSteps" class="btn btn--secondary">Save Progress</button>
+                        <button id="completeAssessment" class="btn btn--primary">Complete Assessment</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 9-Box Grid Page -->
+            <div id="nineBoxGridPage" class="page-content">
+                <h1>Talent 9-Box Grid</h1>
+                <div class="content-card">
+                    <div class="ninebox-container">
+                        <div class="ninebox-y-label">Potential</div>
+                        <div class="ninebox-grid-wrapper">
+                            <div class="ninebox-y-axis">
+                                <div class="axis-label">High</div>
+                                <div class="axis-label">Medium</div>
+                                <div class="axis-label">Low</div>
+                            </div>
+                            <div class="ninebox-grid" id="nineBoxGrid">
+                                <!-- Grid boxes will be generated by JavaScript -->
+                            </div>
+                        </div>
+                        <div class="ninebox-x-label">Performance</div>
+                        <div class="ninebox-x-axis">
+                            <div class="axis-label">Low</div>
+                            <div class="axis-label">Medium</div>
+                            <div class="axis-label">High</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Executive Dashboard Page -->
+            <div id="dashboardPage" class="page-content">
+                <div class="dashboard-header">
+                    <div>
+                        <h1>Executive Dashboard</h1>
+                        <p class="dashboard-timestamp" id="dashboardTimestamp">Last refreshed: <span id="lastRefreshTime"></span></p>
+                    </div>
+                    <div class="dashboard-actions">
+                        <button id="refreshDashboard" class="btn btn--primary">Refresh Data</button>
+                        <button id="exportDashboardPDF" class="btn btn--secondary" style="display: none;">Export to PDF</button>
+                    </div>
+                </div>
+                <div class="dashboard-grid">
+                    <div class="kpi-card">
+                        <h3>Total Talent Pool</h3>
+                        <p class="kpi-value" id="kpiTotalTalent">0</p>
+                    </div>
+                    <div class="kpi-card">
+                        <h3>Critical Roles</h3>
+                        <p class="kpi-value" id="kpiCriticalRoles">0</p>
+                    </div>
+                    <div class="kpi-card">
+                        <h3>Average Performance</h3>
+                        <p class="kpi-value" id="kpiAvgPerformance">0</p>
+                    </div>
+                    <div class="kpi-card">
+                        <h3>Avg. Evolution Readiness</h3>
+                        <p class="kpi-value" id="kpiAvgReadiness">0</p>
+                    </div>
+                </div>
+                <div class="dashboard-row">
+                    <div class="chart-card">
+                        <h3>Retention Risk Distribution</h3>
+                        <div class="chart-container">
+                            <canvas id="retentionRiskChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-card">
+                        <h3>Talent Readiness by Direction</h3>
+                        <div class="chart-container">
+                            <canvas id="readinessByDirectionChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="dashboard-row">
+                    <div class="chart-card full-width">
+                        <h3>Risk vs Impact Assessment (Heatmap)</h3>
+                        <div id="riskImpactHeatmap"></div>
+                    </div>
+                </div>
+                <div class="dashboard-row">
+                    <div class="chart-card full-width">
+                        <h3>9-Box Distribution</h3>
+                        <div class="ninebox-distribution" id="nineboxDistribution"></div>
+                    </div>
+                </div>
+                <div class="dashboard-row">
+                    <div class="chart-card full-width">
+                        <h3>Readiness Summary</h3>
+                        <div class="readiness-summary" id="readinessSummary"></div>
+                    </div>
+                </div>
+                <div class="dashboard-row">
+                    <div class="chart-card">
+                        <h3>Trusted Performers</h3>
+                        <div class="trusted-performers">
+                            <p class="kpi-value" id="trustedPerformersCount">0</p>
+                            <p class="kpi-label">High performers ready for advancement</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Users List Page -->
+            <div id="usersListPage" class="page-content">
+                <h1>Users List</h1>
+                <div class="content-card">
+                    <div class="page-header">
+                        <h2>Application Users</h2>
+                        <div class="header-buttons">
+                            <button id="importUsersBtn" class="btn btn--secondary">Import Users from CSV/Excel</button>
+                            <button id="addUserBtn" class="btn btn--primary">Add New User</button>
+                        </div>
+                    </div>
+                    <input type="file" id="usersCsvInput" accept=".csv,.xlsx" style="display: none;">
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Username</th>
+                                    <th>Full Name</th>
+                                    <th>Role</th>
+                                    <th>Last Login</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="usersTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Employees Database Page -->
+            <div id="employeesDBPage" class="page-content">
+                <h1>Employees Database</h1>
+                <div class="content-card">
+                    <div class="page-header">
+                        <h2>Employee Records</h2>
+                        <div class="header-buttons">
+                            <button id="importEmployeesBtn" class="btn btn--secondary">Import Employees from CSV/Excel</button>
+                            <button id="addEmployeeBtn" class="btn btn--primary">Add New Employee</button>
+                        </div>
+                    </div>
+                    <input type="file" id="employeesCsvInput" accept=".csv,.xlsx" style="display: none;">
+                    <div class="search-bar">
+                        <input type="text" id="employeeSearch" class="form-control" placeholder="Search employees...">
+                    </div>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Job Title</th>
+                                    <th>Grade</th>
+                                    <th>Direction</th>
+                                    <th>Department</th>
+                                    <th>Category</th>
+                                    <th>Avg. Performance</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="employeesDBTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <p>Human Resources Department</p>
+        </footer>
+    </div>
+
+    <!-- Modal for Employee History -->
+    <div id="historyModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <h2 id="modalEmployeeName"></h2>
+            <div id="modalHistoryContent"></div>
+        </div>
+    </div>
+
+    <!-- Modal for User Form -->
+    <div id="userFormModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <h2 id="userFormTitle">Add New User</h2>
+            <form id="userForm">
+                <input type="hidden" id="userFormId">
+                <div class="form-group">
+                    <label for="userFormUsername">Username</label>
+                    <input type="text" id="userFormUsername" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="userFormFullName">Full Name</label>
+                    <input type="text" id="userFormFullName" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="userFormPassword">Password</label>
+                    <input type="password" id="userFormPassword" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="userFormRole">Role</label>
+                    <select id="userFormRole" class="form-control" required>
+                        <option value="LineManager">Line Manager</option>
+                        <option value="HR">Human Resources</option>
+                    </select>
+                </div>
+                
+                <!-- Permissions Section -->
+                <div class="permissions-section">
+                    <h3>Permissions</h3>
+                    
+                    <div class="permissions-category">
+                        <h4>Assessment Permissions</h4>
+                        <label class="checkbox-label"><input type="checkbox" id="permCanAssess"> Can Assess Employees</label>
+                        <label class="checkbox-label"><input type="checkbox" id="permViewAllAssessments"> Can View All Assessments</label>
+                        <label class="checkbox-label"><input type="checkbox" id="permEditOwnAssessments"> Can Edit Own Assessments Only</label>
+                        <label class="checkbox-label"><input type="checkbox" id="permEditAllAssessments"> Can Edit All Assessments</label>
+                    </div>
+                    
+                    <div class="permissions-category">
+                        <h4>Employee Management</h4>
+                        <label class="checkbox-label"><input type="checkbox" id="permAddEmployees"> Can Add Employees</label>
+                        <label class="checkbox-label"><input type="checkbox" id="permEditEmployeeData"> Can Edit Employee Data</label>
+                        <label class="checkbox-label"><input type="checkbox" id="permDeleteEmployees"> Can Delete Employees</label>
+                        <label class="checkbox-label"><input type="checkbox" id="permViewAllEmployees"> Can View All Employees</label>
+                    </div>
+                    
+                    <div class="permissions-category">
+                        <h4>Department/Section Visibility</h4>
+                        <label class="checkbox-label"><input type="checkbox" id="permAccessAllSections"> Can Access All Sections</label>
+                        <label>Restricted to Sections:</label>
+                        <select id="permRestrictedSections" class="form-control" multiple size="5">
+                            <option value="Operations">Operations</option>
+                            <option value="Finance">Finance</option>
+                            <option value="Sales & Marketing">Sales &amp; Marketing</option>
+                            <option value="Human Resources">Human Resources</option>
+                            <option value="IT">IT</option>
+                        </select>
+                    </div>
+                    
+                    <div class="permissions-category">
+                        <h4>Rating Permissions</h4>
+                        <label class="checkbox-label"><input type="checkbox" id="permRatePerformance"> Can Rate Performance</label>
+                        <label class="checkbox-label"><input type="checkbox" id="permRateEvolution"> Can Rate Evolution Potential</label>
+                        <label class="checkbox-label"><input type="checkbox" id="permRateRetention"> Can Rate Retention Risk</label>
+                        <label class="checkbox-label"><input type="checkbox" id="permDefineNextSteps"> Can Define Next Steps</label>
+                    </div>
+                    
+                    <div class="permissions-category">
+                        <h4>Reporting Permissions</h4>
+                        <label class="checkbox-label"><input type="checkbox" id="permViewDashboard"> Can View Executive Dashboard</label>
+                        <label class="checkbox-label"><input type="checkbox" id="permExportPDF"> Can Export Reports to PDF</label>
+                        <label class="checkbox-label"><input type="checkbox" id="permViewAllManagerData"> Can View All Manager Data</label>
+                        <label class="checkbox-label"><input type="checkbox" id="permAccessAnalytics"> Can Access Analytics</label>
+                    </div>
+                    
+                    <div class="permissions-category">
+                        <h4>User Management (HR Only)</h4>
+                        <label class="checkbox-label"><input type="checkbox" id="permManageUsers"> Can Manage Users</label>
+                        <label class="checkbox-label"><input type="checkbox" id="permAssignRoles"> Can Assign Roles</label>
+                        <label class="checkbox-label"><input type="checkbox" id="permResetPasswords"> Can Reset Passwords</label>
+                    </div>
+                </div>
+                
+                <div class="modal-actions">
+                    <button type="button" class="btn btn--secondary" onclick="closeModal('userFormModal')">Cancel</button>
+                    <button type="submit" class="btn btn--primary">Save User</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal for Employee Form -->
+    <div id="employeeFormModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <h2 id="employeeFormTitle">Add New Employee</h2>
+            <form id="employeeForm">
+                <input type="hidden" id="employeeFormId">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="employeeFormName">Name</label>
+                        <input type="text" id="employeeFormName" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="employeeFormJobTitle">Job Title</label>
+                        <input type="text" id="employeeFormJobTitle" class="form-control" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="employeeFormJobGrade">Job Grade</label>
+                        <input type="text" id="employeeFormJobGrade" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="employeeFormDirection">Direction</label>
+                        <input type="text" id="employeeFormDirection" class="form-control" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="employeeFormDepartment">Department</label>
+                        <input type="text" id="employeeFormDepartment" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="employeeFormJobCategory">Job Category</label>
+                        <input type="text" id="employeeFormJobCategory" class="form-control" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="employeeFormPerformance">Last 3 Years Average Performance (1-5)</label>
+                    <input type="number" id="employeeFormPerformance" class="form-control" min="1" max="5" step="0.1" required>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn--secondary" onclick="closeModal('employeeFormModal')">Cancel</button>
+                    <button type="submit" class="btn btn--primary">Save Employee</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Chart.js for dashboard charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- CSV/Excel parsing libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    
+    <!-- PDF generation libraries - CRITICAL FOR EXPORT -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" 
+            integrity="sha512-qZvrmS2ekKPF2mSznTQsxqPgnpkI4DNTlrdUmTzrDgektczlKNRRhy5X5AAOnx5S09ydFYWWNSfcEqDTTHgtNA==" 
+            crossorigin="anonymous" 
+            referrerpolicy="no-referrer"
+            onload="console.log('jsPDF library loaded successfully')" 
+            onerror="console.error('Failed to load jsPDF library')"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" 
+            integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" 
+            crossorigin="anonymous" 
+            referrerpolicy="no-referrer"
+            onload="console.log('html2canvas library loaded successfully')" 
+            onerror="console.error('Failed to load html2canvas library')"></script>
+    
+    <!-- Application JavaScript -->
+    <script src="app.js"></script>
+</body>
+</html>
